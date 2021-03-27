@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="position:relative; top:0%; text-align: center;">
+<h1 class="title">KapolQuora</h1>
+<h2>You can Ask Your Questions regarding studies here! Login using your school email id and start asking!</h2><br>
+<h5>Some of the questions asked by others are shown here. You can even answer them.</h5><br>
+{% if data %}
+<form action="/" method="POST">
+<div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
+  <p>Which grade questions do you want to see?</p>
+    <select id="std" name="std" style="background-color: transparent">
+        <option disabled selected>--Select a grade--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+    <input style="background-color: transparent;" type="submit" value="Filter!">
+</div>
+</form>
+{% for x in data %}
+<br>
+<div class="card" style="text-align: center; margin:auto; width: 50%; background-color: transparent;">
+    <div class="card-header" style="align-content: center;">
+      <p class="card-header-title" style="align-content: center;">
+        {{x.question}}
+      </p>
+    </div>
+    <div class="card-content">
+      <div class="content">
+            <h3>{{x.description}}</h3>
+        <br><br><br>
+            <p style="text-align:end">asked by-{{x.author}}</p>
+            <p style="text-align:end">grade-{{x.std}}</p>
+            {% if x.answer %}
+              <p>Answer-{{x.answer}}</p>
+            {% endif %}
+      </div>
+    </div>
+    {% if current_user.is_authenticated and x.answer %}
+    <p>This question is already answered!</p>
+    {% elif current_user.is_authenticated %}
+    <footer class="card-footer" id="answers-area"><button onclick="answer({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Answer!</button><button onclick="report({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Report</button></footer>
+    {% else %}
+    <footer class="card-footer"><p style="text-align: center; margin:auto;">You need to Log in to answer this question.</p></footer>
+    {% endif %}
+  </div>
+</div>
+<script>
+    function answer(qno){
+      console.log(document.getElementById('answers-area').innerHTML)
+      if(document.getElementById('answers-area').innerHTML=="<button onclick=\"answer({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Answer!</button><button onclick=\"report({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Report</button>"){
+        document.getElementById('answers-area').innerHTML="<form action=\"/answer\" method=\"POST\"><input name=\"sno\" type=\"text\" value=\"{{x.sno}}\" hidden><input type=\"text\" name=\"answer\"><input type=\"submit\"></form><button onclick=\"location.reload()\">Cancel!</button>"
+      }
+      else{
+        document.getElementById('answers-area').innerHTML="<button onclick=\"answer({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Answer!</button><button onclick=\"report({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Report</button>"
+      }
+          console.log('Answering!')
+    }
+    function report(qno){
+      console.log('Reporting!')
+    }
+</script>
+{% endfor %}
+{% else %}
+    <h4 style="padding-top:10px">No questions are asked till now! Add one yourself.</h4>
+{% endif %}
+{% endblock %}
