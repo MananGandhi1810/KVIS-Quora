@@ -20,16 +20,6 @@
         <br>
       </div>
     </div>
-    {% if current_user.is_authenticated %}
-    <footer class="card-footer">
-      <button onclick="answer({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Answer!</button>
-      <button onclick="report({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Report</button>
-    </footer>
-    {% else %}
-    <footer class="card-footer">
-      <p style="text-align: center; margin:auto;">You need to Log in to answer this question.</p>
-    </footer>
-    {% endif %}
   </div>
 </div>
 {% endfor %}
