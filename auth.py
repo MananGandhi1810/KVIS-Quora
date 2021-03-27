@@ -25,6 +25,9 @@ def logout():
 def signup_post():
     # code to validate and add user to database goes here
     email = request.form.get('email')
+    if email.endswith('@kvis-icse.in'):
+        flash("Please enter a valid email id!")
+        return redirect(url_for('auth.signup'))
     name = request.form.get('name')
     password = request.form.get('password')
     std = request.form.get('std')
