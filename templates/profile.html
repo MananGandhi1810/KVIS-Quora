@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="position:relative; top:0%; text-align: center;">
+<h1 class="title">KapolQuora</h1>
+<h2>Welcome to your profile, {{user}}</h2><br>
+<h5>The questions asked by you are shown here.</h5>
+{% if data %}
+{% for x in data %}
+<br>
+<div class="card" style="text-align: center; margin:auto; width: 50%; background-color: transparent;">
+    <div class="card-header" style="align-content: center;">
+      <p class="card-header-title" style="align-content: center;">
+        {{x.question}}
+      </p>
+    </div>
+    <div class="card-content">
+      <div class="content">
+            {{x.description}}
+        <br>
+      </div>
+    </div>
+    {% if current_user.is_authenticated %}
+    <footer class="card-footer">
+      <button onclick="answer({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Answer!</button>
+      <button onclick="report({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Report</button>
+    </footer>
+    {% else %}
+    <footer class="card-footer">
+      <p style="text-align: center; margin:auto;">You need to Log in to answer this question.</p>
+    </footer>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+{% else %}
+    <h4 style="padding-top:10px">You have not asked any questions till now!</h4>
+{% endif %}
+<script>
+    function answer(qno){
+      console.log('Answering!')
+    }
+    function report(qno){
+      console.log('Reporting!')
+    }
+</script>
+{% endblock %}
