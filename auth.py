@@ -25,9 +25,11 @@ def logout():
 def signup_post():
     # code to validate and add user to database goes here
     email = request.form.get('email')
-    if email.endswith('@kvis-icse.in'):
+    if not email.endswith('@kvis-icse.in'):
+        print(email)
         flash("Please enter a valid email id!")
         return redirect(url_for('auth.signup'))
+    
     name = request.form.get('name')
     password = request.form.get('password')
     std = request.form.get('std')
@@ -47,7 +49,7 @@ def signup_post():
 
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
     if user:
-        flash('Done!')
+        flash('Done! Go to the login page and login with this id.')
         return redirect(url_for('auth.signup'))
 
 
