@@ -1,5 +1,5 @@
 from flask import *
-from initial import db
+from initial import *
 from flask_login import login_required, current_user
 from models import Questions
 
@@ -42,13 +42,15 @@ def ask_add():
 def answer():
     answer=request.form.get('answer')
     sno=request.form.get('sno')
-    new_answer=Questions.query.filter(Questions.sno==sno).all()
-    print(new_answer[0].author)
-    question=new_answer[0].question
-    description=new_answer[0].description
-    author=new_answer[0].author
-    std=new_answer[0].std
-    new_data=Questions(question=question, description=description, author=author, std=std, answer=answer)
-    db.session.add(new_data)
+    change=Questions.query.filter(Questions.sno==sno).first()
+    change.answer=answer
     db.session.commit()
     return redirect(url_for('main.index'))
+
+@main.route('/delete', methods=['POST'])
+def delete_question():
+    sno=request.form.get('sno')
+    to_delete=Questions.query.filter(Questions.sno==sno).first()
+    db.session.delete(to_delete)
+    db.session.commit()
+    return redirect(url_for('main.profile'))

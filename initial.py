@@ -10,7 +10,6 @@ def create_app():
     app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
     app.config['SECRET_KEY'] = 'This-is-my-Secret'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-
     db.init_app(app)
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

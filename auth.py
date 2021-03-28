@@ -1,6 +1,7 @@
 from flask import *
-from initial import db
+from initial import *
 from models import User
+import smtplib
 from flask_login import login_user, logout_user, login_required
 
 
@@ -32,6 +33,10 @@ def signup_post():
     
     name = request.form.get('name')
     password = request.form.get('password')
+    cpassword = request.form.get('cpassword')
+    if password!=cpassword:
+        flash("The passwords do not match, please check")
+        return redirect(url_for('auth.signup'))
     std = request.form.get('std')
 
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
@@ -49,8 +54,8 @@ def signup_post():
 
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
     if user:
-        flash('Done! Go to the login page and login with this id.')
-        return redirect(url_for('auth.signup'))
+        flash('We have successfully created your account. Please log into it to access it')
+        return redirect(url_for('auth.login'))
 
 
 @auth.route('/login', methods=['POST'])
@@ -70,3 +75,24 @@ def login_post():
     login_user(user, remember=remember)
     # print("true!")
     return redirect(url_for('main.ask'))
+
+@auth.route('/reset')
+def reset():
+    return render_template("reset.html")
+
+@auth.route('/reset', methods=['POST'])
+def send_otp():
+    email=request.form.get('email')
+    sender = 'gandhimanan1810@gmail.com'
+    receivers = [email]
+
+    message = "your otp is 1234"
+
+    try:
+        smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+        smtpObj.sendmail(sender, receivers, message)         
+        print("Successfully sent email")
+        return render_template('use_otp.html')
+    except:
+        print("Error: unable to send email")
+        return "error"
