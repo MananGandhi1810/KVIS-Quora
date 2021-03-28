@@ -5,12 +5,12 @@
 <h1 class="title">KapolQuora</h1>
 <h2>You can Ask Your Questions regarding studies here! Login using your school email id and start asking!</h2><br>
 <h5>Some of the questions asked by others are shown here. You can even answer them.</h5><br>
-{% if data %}
 <form action="/" method="POST">
 <div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
   <p>Which grade questions do you want to see?</p>
     <select id="std" name="std" style="background-color: transparent">
         <option disabled selected>--Select a grade--</option>
+        <option value="all">All</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -25,6 +25,7 @@
     <input style="background-color: transparent;" type="submit" value="Filter!">
 </div>
 </form>
+{% if data %}
 {% for x in data %}
 <br>
 <div class="card" style="text-align: center; margin:auto; width: 50%; background-color: transparent;">

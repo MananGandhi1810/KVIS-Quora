@@ -13,8 +13,10 @@ def index():
 
 @main.route('/', methods=["POST"])
 def index_grade():
-    std=request.form.get('std')
-    return render_template('index.html', data=Questions.query.filter(Questions.std==std).all()[::-1])
+		std=request.form.get('std')
+		if std=="all":
+			return redirect(url_for('main.index'))
+		return render_template('index.html', data=Questions.query.filter(Questions.std==std).all()[::-1])
 
 @main.route('/profile')
 @login_required
