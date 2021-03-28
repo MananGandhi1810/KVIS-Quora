@@ -43,8 +43,10 @@ def ask_add():
 @main.route('/answer', methods=['POST'])
 def answer():
     answer=request.form.get('answer')
-    sno=request.form.get('sno')
-    change=Questions.query.filter(Questions.sno==sno).first()
+    no=request.form.get('sno')
+    print(no)
+    change=Questions.query.filter_by(sno=no).first()
+    print(change)
     change.answer=answer
     db.session.commit()
     return redirect(url_for('main.index'))
