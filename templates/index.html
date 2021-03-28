@@ -45,9 +45,8 @@
       </div>
     </div>
     {% if current_user.is_authenticated and x.answer %}
-    <p>This question is already answered!</p>
     {% elif current_user.is_authenticated %}
-    <footer class="card-footer" id="answers-area"><button onclick="answer({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Answer!</button><button onclick="report({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Report</button></footer>
+    <footer class="card-footer" id="answers-area-{{x.sno}}"><button onclick="answer({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Answer!</button><button onclick="report({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Report</button></footer>
     {% else %}
     <footer class="card-footer"><p style="text-align: center; margin:auto;">You need to Log in to answer this question.</p></footer>
     {% endif %}
@@ -55,17 +54,18 @@
 </div>
 <script>
     function answer(qno){
-      console.log(document.getElementById('answers-area').innerHTML)
-      if(document.getElementById('answers-area').innerHTML=="<button onclick=\"answer({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Answer!</button><button onclick=\"report({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Report</button>"){
-        document.getElementById('answers-area').innerHTML="<form action=\"/answer\" method=\"POST\"><input name=\"sno\" type=\"text\" value=\"{{x.sno}}\" hidden><input type=\"text\" name=\"answer\"><input type=\"submit\"></form><button onclick=\"location.reload()\">Cancel!</button>"
+      console.log(document.getElementById('answers-area-'+qno).innerHTML)
+      if(document.getElementById('answers-area-'+qno).innerHTML=="<button onclick=\"answer("+qno+")\" class=\"card-footer-item\" style=\"background-color: transparent;\">Answer!</button><button onclick=\"report("+qno+")\" class=\"card-footer-item\" style=\"background-color: transparent;\">Report</button>"){
+        document.getElementById('answers-area-'+qno).innerHTML="<form action=\"/answer\" method=\"POST\"><input name=\"sno\" type=\"text\" value=\"{{x.sno}}\" hidden><input type=\"text\" name=\"answer\"><input type=\"submit\"></form><button onclick=\"answer("+qno+")\">Cancel!</button>"
       }
       else{
-        document.getElementById('answers-area').innerHTML="<button onclick=\"answer({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Answer!</button><button onclick=\"report({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Report</button>"
+        document.getElementById('answers-area-'+qno).innerHTML="<button onclick=\"answer("+qno+")\" class=\"card-footer-item\" style=\"background-color: transparent;\">Answer!</button><button onclick=\"report({{x.sno}})\" class=\"card-footer-item\" style=\"background-color: transparent;\">Report</button>"
       }
           console.log('Answering!')
     }
     function report(qno){
       console.log('Reporting!')
+      alert('This question has been reported. the admin will soon check and take the ncessary actions.')
     }
 </script>
 {% endfor %}
