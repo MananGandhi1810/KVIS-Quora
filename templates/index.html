@@ -8,9 +8,8 @@
 <form action="/" method="POST">
 <div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
   <p style="color:black">Which grade questions do you want to see?</p>
-    <select id="std" name="std" style="background-color: transparent">
-        <option disabled selected>--Select a grade--</option>
-        <option value="all">All</option>
+    <select id="std" name="std" style="background-color: transparent" onchange  ="this.form.submit()">
+        <option value="all" selected>All</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -22,7 +21,7 @@
         <option value="9">9</option>
         <option value="10">10</option>
     </select>
-    <input style="background-color: transparent;" type="submit" value="Filter!">
+    <!-- <input style="background-color: transparent;" type="submit" value="Filter!"> -->
 </div>
 </form>
 {% if data %}
