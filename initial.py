@@ -14,6 +14,9 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
+    def page_not_found(e):
+        return render_template('404.html'),404
+    app.register_error_handler(404, page_not_found)
     from models import User
     
 
