@@ -24,51 +24,52 @@ def index_grade():
         if isanswered==None:
             isanswered="all"
         all_data=Questions.query.all()[::-1]
+        sorted=[std, subject, isanswered]
         # print(std, subject, isanswered,[x.answer for x in all_data])
         if std=="all" and subject=="all" and isanswered=="all":
             print(1)
             return redirect(url_for('main.index'))
         if std=="all" and subject!="all" and isanswered=="all":
             print(13)
-            return render_template('index.html', data=[x for x in all_data if x.subject==subject])
+            return render_template('index.html', data=[x for x in all_data if x.subject==subject], sorted=sorted)
         if std!="all" and subject=="all" and isanswered=="all":
             print(14)
             # for x in range(len(all_data)):
                 # print(all_data[x].std)
-            return render_template('index.html', data=[x for x in all_data if x.std==std])
+            return render_template('index.html', data=[x for x in all_data if x.std==std], sorted=sorted)
         elif isanswered=="answered" and std!="all" and subject!="all":
             print(5)
-            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std and x.subject==subject])
+            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std and x.subject==subject], sorted=sorted)
         elif isanswered=="answered" and std=="all" and subject!="all":
             print(6)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject])
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject], sorted=sorted)
         elif isanswered=="answered" and std!="all" and subject=="all":
             print(7)
-            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std])
+            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std], sorted=sorted)
         elif isanswered=="unanswered" and std!="all" and subject!="all":
             print(8)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std and x.subject==subject])
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std and x.subject==subject], sorted=sorted)
         elif isanswered=="unanswered" and std=="all" and subject!="all":
             print(9)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject])
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject], sorted=sorted)
         elif isanswered=="unanswered" and std!="all" and subject=="all":
             print(10)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std])
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std], sorted=sorted)
         elif isanswered=="answered" and std=="all" and subject=="all":
             print(11)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None])
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None], sorted=sorted)
         elif isanswered=="unanswered":
             print(12)
-            return render_template('index.html', data=[x for x in all_data if x.answer==None])
+            return render_template('index.html', data=[x for x in all_data if x.answer==None], sorted=sorted)
         elif std=="all":
             print(2)
-            return render_template('index.html', data=[x for x in all_data if x.subject==subject])
+            return render_template('index.html', data=[x for x in all_data if x.subject==subject], sorted=sorted)
         elif subject=="all":
             print(3)
-            return render_template('index.html', data=[x for x in all_data if x.std==std])
+            return render_template('index.html', data=[x for x in all_data if x.std==std], sorted=sorted)
         elif isanswered=="all":
             print(4)
-            return render_template('index.html', data=[x for x in all_data if x.std==std and x.subject==subject])
+            return render_template('index.html', data=[x for x in all_data if x.std==std and x.subject==subject], sorted=sorted)
         
 
 @main.route('/profile')

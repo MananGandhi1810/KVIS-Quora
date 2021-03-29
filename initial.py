@@ -1,6 +1,6 @@
 from flask import *
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
@@ -19,7 +19,6 @@ def create_app():
     app.register_error_handler(404, page_not_found)
     from models import User
     
-
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))

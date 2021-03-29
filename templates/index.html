@@ -5,10 +5,10 @@
 <h1 class="title" style="color:black">KapolQuora</h1>
 <h2 style="color:black">You can Ask Your Questions regarding studies here! Login using your school email id and start asking!</h2><br>
 <h5 style="color:black">Some of the questions asked by others are shown here. You can even answer them.</h5><br>
-<form action="/" method="POST">
 <div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
+<form action="/" method="POST">
   <p style="color:black">Filters</p>
-    <select id="std" name="std" style="background-color: transparent    ">
+    <select id="std" name="std" style="background-color: transparent">
         <option disabled value="all" selected>--Select A Grade--</option>
         <option value="all">All</option>
         <option value="1">1</option>
@@ -27,8 +27,12 @@
     <select id="answered" name="answered" style="background-color:transparent;"><option selected disabled value="all">--Answered/Unanswered--</option><option value="all">All</option><option value="answered">answered</option><option value="unanswered">Unanswered</option>
     </select>
     <input style="background-color: transparent;" type="submit" value="Filter!">
-  </div>
-</form>
+  </form>
+  <form action="/"><input type="submit" value="Clear Filters" style="background-color: transparent;"></form>
+</div>
+{% if sorted %}
+  <h3 style="color: black;">Grade - {{sorted[0]}}, Standard - {{sorted[1]}}, Answered/Unanswered - {{sorted[2]}}</h3>
+{% endif %}
 {% if data %}
 {% for x in data %}
 <br>
