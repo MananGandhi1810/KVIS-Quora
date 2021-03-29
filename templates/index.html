@@ -28,7 +28,7 @@
     </select>
     <input style="background-color: transparent;" type="submit" value="Filter!">
   </form>
-  <form action="/"><input type="submit" value="Clear Filters" style="background-color: transparent;"></form>
+  <form action="/" method="POST"><input type="submit" value="Clear Filters" style="background-color: transparent;"></form>
 </div>
 {% if sorted %}
   <h3 style="color: black;">Grade - {{sorted[0]}}, Standard - {{sorted[1]}}, Answered/Unanswered - {{sorted[2]}}</h3>
