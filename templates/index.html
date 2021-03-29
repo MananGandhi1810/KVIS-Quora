@@ -7,9 +7,10 @@
 <h5 style="color:black">Some of the questions asked by others are shown here. You can even answer them.</h5><br>
 <form action="/" method="POST">
 <div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
-  <p style="color:black">Which grade questions do you want to see?</p>
-    <select id="std" name="std" style="background-color: transparent" onchange  ="this.form.submit()">
-        <option value="all" selected>All</option>
+  <p style="color:black">Filters</p>
+    <select id="std" name="std" style="background-color: transparent">
+        <option disabled value="all" selected>--Select A Grade--</option>
+        <option value="all">All</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -21,8 +22,12 @@
         <option value="9">9</option>
         <option value="10">10</option>
     </select>
-    <!-- <input style="background-color: transparent;" type="submit" value="Filter!"> -->
-</div>
+    <select id="subject" name="subject" style="background-color:transparent;"><option selected disabled value="all">--Select A Subject--</option><option value="all">All</option><option value="Maths">Maths</option><option value="Computer">Computer</option><option value="Physics">Physics</option><option value="Chemistry">Chemistry</option><option value="Biology">Biology</option><option value="History">History</option><option value="Geography">Geography</option><option value="English">English</option><option value="Hindi">Hindi</option><option value="Economics">Economics</option><option value="Marathi">Marathi</option><option value="French">French</option><option value="Gujarati">Gujarati</option><option value="Commercial Studies">Commercial Studies</option><option value="Commercial Applications">Commercial Applications</option><option value="Art">Art</option><option value="Physical Education">Physical Education</option><option value="Yoga">Yoga</option>
+    </select>
+    <select id="answered" name="answered" style="background-color:transparent;"><option selected disabled value="all">--Answered/Unanswered--</option><option value="all">All</option><option value="answered">answered</option><option value="unanswered">Unanswered</option>
+    </select>
+    <input style="background-color: transparent;" type="submit" value="Filter!">
+  </div>
 </form>
 {% if data %}
 {% for x in data %}
@@ -37,8 +42,9 @@
       <div class="content">
             <h3>{{x.description}}</h3>
         <br><br><br>
-            <p style="text-align:end">asked by-{{x.author}}</p>
-            <p style="text-align:end">grade-{{x.std}}</p>
+            <p style="text-align:end">Asked by-{{x.author}}</p>
+            <p style="text-align:end">Grade-{{x.std}}</p>
+            <p style="text-align:end">Subject-{{x.subject}}</p>
             {% if x.answer %}
               <p>Answer-{{x.answer}}</p>
             {% endif %}

@@ -21,7 +21,7 @@
             </div>
             <p style="position: absolute;">Grade - </p>
             <div style="margin:auto; float: right; padding-right:5%; padding-bottom: 3%;">
-                <select id="std" name="std" style="padding:9%;">
+                <select id="std" name="std" style="padding:9%;" required>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -34,15 +34,15 @@
                     <option value="10">10</option>
                 </select>
             </div>
+            <br>
+            <br>
+            <div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
+                <p style="position: absolute;">Subject - </p><select id="subject" name="subject" style="padding:0%; float: right;" required><option value="Maths">Maths</option><option value="Computer">Computer</option><option value="Physics">Physics</option><option value="Chemistry">Chemistry</option><option value="Biology">Biology</option><option value="History">History</option><option value="Geography">Geography</option><option value="English">English</option><option value="Hindi">Hindi</option><option value="Economics">Economics</option><option value="Marathi">Marathi</option><option value="French">French</option><option value="Gujarati">Gujarati</option><option value="Commercial Studies">Commercial Studies</option><option value="Commercial Applications">Commercial Applications</option><option value="Art">Art</option><option value="Physical Education">Physical Education</option><option value="Yoga">Yoga</option>
+                </select>
+            </div>
+            <br><br>
             <button class="button is-block is-info is-large is-fullwidth">Ask!</button>
         </form>
     </div>
 </div>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="notification is-danger">
-    {{ messages[0] }}
-</div>
-{% endif %}
-{% endwith %}
 {% endblock %}

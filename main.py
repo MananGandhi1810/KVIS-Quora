@@ -13,10 +13,63 @@ def index():
 
 @main.route('/', methods=["POST"])
 def index_grade():
-		std=request.form.get('std')
-		if std=="all":
-			return redirect(url_for('main.index'))
-		return render_template('index.html', data=Questions.query.filter(Questions.std==std).all()[::-1])
+        std=request.form.get('std')
+        subject=request.form.get('subject')
+        isanswered=request.form.get('answered')
+        if std==None or std=="all":
+            std="all"
+        else: std=int(std)
+        if subject==None:
+            subject="all"
+        if isanswered==None:
+            isanswered="all"
+        all_data=Questions.query.all()[::-1]
+        # print(std, subject, isanswered,[x.answer for x in all_data])
+        if std=="all" and subject=="all" and isanswered=="all":
+            print(1)
+            return redirect(url_for('main.index'))
+        if std=="all" and subject!="all" and isanswered=="all":
+            print(13)
+            return render_template('index.html', data=[x for x in all_data if x.subject==subject])
+        if std!="all" and subject=="all" and isanswered=="all":
+            print(14)
+            # for x in range(len(all_data)):
+                # print(all_data[x].std)
+            return render_template('index.html', data=[x for x in all_data if x.std==std])
+        elif isanswered=="answered" and std!="all" and subject!="all":
+            print(5)
+            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std and x.subject==subject])
+        elif isanswered=="answered" and std=="all" and subject!="all":
+            print(6)
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject])
+        elif isanswered=="answered" and std!="all" and subject=="all":
+            print(7)
+            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std])
+        elif isanswered=="unanswered" and std!="all" and subject!="all":
+            print(8)
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std and x.subject==subject])
+        elif isanswered=="unanswered" and std=="all" and subject!="all":
+            print(9)
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject])
+        elif isanswered=="unanswered" and std!="all" and subject=="all":
+            print(10)
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std])
+        elif isanswered=="answered" and std=="all" and subject=="all":
+            print(11)
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None])
+        elif isanswered=="unanswered":
+            print(12)
+            return render_template('index.html', data=[x for x in all_data if x.answer==None])
+        elif std=="all":
+            print(2)
+            return render_template('index.html', data=[x for x in all_data if x.subject==subject])
+        elif subject=="all":
+            print(3)
+            return render_template('index.html', data=[x for x in all_data if x.std==std])
+        elif isanswered=="all":
+            print(4)
+            return render_template('index.html', data=[x for x in all_data if x.std==std and x.subject==subject])
+        
 
 @main.route('/profile')
 @login_required
@@ -34,13 +87,15 @@ def ask_add():
     question=request.form.get('question')
     description=request.form.get('description')
     std=request.form.get('std')
-    q=Questions(question=question, description=description, author=current_user.name, std=std)
+    subject=request.form.get('subject')
+    q=Questions(question=question, description=description, author=current_user.name, std=std, subject=subject)
     db.session.add(q)
     db.session.commit()
     flash("Question Added!")
     return render_template("ask.html", name=current_user.name)
 
 @main.route('/answer', methods=['POST'])
+@login_required
 def answer():
     answer=request.form.get('answer')
     no=request.form.get('sno')
@@ -52,6 +107,7 @@ def answer():
     return redirect(url_for('main.index'))
 
 @main.route('/delete', methods=['POST'])
+@login_required
 def delete_question():
     sno=request.form.get('sno')
     to_delete=Questions.query.filter(Questions.sno==sno).first()
