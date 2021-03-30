@@ -75,20 +75,20 @@
                         </div>
                     </div>
                 </div>
-
+                
             </nav>
+            <br><br>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
             {% block content %}  
             {% endblock %}
         </div>
-
     </section>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-    {% endif %}
-    {% endwith %}
     <script>
         function toggle(){
             if(document.getElementById("navid").className=="navbar-menu is-active"){

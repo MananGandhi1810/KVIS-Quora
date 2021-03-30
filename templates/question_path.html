@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<br><br><hr>
+<div class="card">
+    <div class="card-content">
+      <div style="margin:auto;align-content: center;">
+        <p class="title" style="color:black;">
+          {{data.question}}
+        </p>
+        <p class="subtitle" style="color:black">
+          {{data.description}}
+        </p>
+      </div><br>
+      <p>Asked By- {{data.author}}</p>
+      <p>Grade - {{data.std}}</p>
+      <p>Subject - {{data.subject}}</p>
+      {% if data.answer %}
+      <p>Answer - {{data.answer}}</p>
+      {% endif %}
+    </div>
+    {% if not data.answer %}
+    <footer class="card-footer" style="width: 100%;">
+      <form action="/answer" method="POST" style="width: 100%;">
+        <input type="text" name="sno" value="{{data.sno}}" hidden>
+        <textarea id="code" name="answer" style="max-width: 100%; width:1000%; resize:none" placeholder="Your Answer Here" rows="5" ></textarea>
+        <input type="submit">
+      </form>
+    </footer>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -115,3 +115,10 @@ def delete_question():
     db.session.delete(to_delete)
     db.session.commit()
     return redirect(url_for('main.profile'))
+
+@main.route('/question/<int:id>')
+@login_required
+def question_show(id):
+    data=Questions.query.filter(Questions.sno==id).first()
+    print(data )
+    return render_template("question_path.html", data=data)
