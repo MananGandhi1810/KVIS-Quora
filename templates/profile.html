@@ -2,9 +2,9 @@
 
 {% block content %}
 <div style="position:relative; top:0%; text-align: center;">
-<h1 class="title">KapolQuora</h1>
-<h2>Welcome to your profile, {{user}}</h2><br>
-<h5>The questions asked by you are shown here.</h5>
+<h1 class="title" style="color:black">KapolQuora</h1>
+<h2 style="color:black">Welcome to your profile, {{user}}</h2><br>
+<h5 style="color:black">The questions asked by you are shown here.</h5>
 {% if data %}
 {% for x in data %}
 <br>
@@ -27,7 +27,7 @@
 </div>
 {% endfor %}
 {% else %}
-    <h4 style="padding-top:10px">You have not asked any questions till now!</h4>
+    <h4 style="padding-top:10px; color:black">You have not asked any questions till now!</h4>
 {% endif %}
 <script>
     function answer(qno){
