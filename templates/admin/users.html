@@ -1,0 +1,25 @@
+{%extends 'admin/base.html'%}
+{% block content %}
+{% if users %}
+<table style="width: 100%;">
+    <tr>
+        <th>S.No.</th>
+        <th>Name</th>
+        <th>Email ID</th>
+        <th>Grade</th>
+        <th>Role</th>
+    </tr>
+    {% for x in users %}
+    <tr style="color: black;">
+        <td style="border: 1px solid black;">{{x.id}}</td>
+        <td style="border: 1px solid black;">{{x.name}}</td>
+        <td style="border: 1px solid black;">{{x.email}}</td>
+        <td style="border: 1px solid black;">{{x.std}}</td>
+        <td style="border: 1px solid black;">{% if x.is_teacher %}Teacher{% else %}Student{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h1 style="color:black; margin:auto; text-align:center">No Data can be found here!</h1>
+{% endif %}
+{% endblock %}

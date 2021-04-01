@@ -1,7 +1,7 @@
 from flask import *
 from initial import *
 from flask_login import login_required, current_user
-from models import Questions
+from models import Questions, User
 
 
 main = Blueprint('main', __name__)
@@ -122,3 +122,59 @@ def question_show(id):
     data=Questions.query.filter(Questions.sno==id).first()
     print(data )
     return render_template("question_path.html", data=data)
+
+
+@main.route('/admin/')
+@login_required
+def admin():
+    return render_template('admin/base.html')
+
+@main.route('/admin/Users')
+@login_required
+def users_admin():
+    users=User.query.all()[::-1]
+    return render_template('admin/users.html', users=users)
+
+@main.route('/admin/Questions/')
+@login_required
+def question_admin():
+    questions=Questions.query.all()[::-1]
+    return render_template('admin/questions.html', questions=questions)
+
+@main.route('/admin/Questions/edit', methods=['POST'])
+@login_required
+def edit_questions():
+    sno=request.form.get('sno')
+    data=Questions.query.filter(Questions.sno==sno).first()
+    return render_template("admin/edit_questions.html", data=data)
+
+
+@main.route('/admin/Questions/update', methods=["POST"])
+@login_required
+def update():
+    sno=request.form.get('sno')
+    question=request.form.get('question')
+    description=request.form.get('description')
+    try:
+        answer=request.form.get('answer')
+    except:
+        answer=None
+    std=request.form.get('grade')
+    edit=Questions.query.filter(Questions.sno==int(sno)).first()
+    edit.question=question
+    edit.description=description
+    edit.answer=answer
+    edit.std=std
+    db.session.commit()
+    flash("Edit Saved Successfully!")
+    return redirect("/admin/Questions")
+
+@main.route('/admin/Questions/delete', methods=["POST"])
+@login_required
+def delete():
+    sno=request.form.get('sno')
+    to_delete=Questions.query.filter(Questions.sno==int(sno)).first()
+    db.session.delete(to_delete)
+    db.session.commit()
+    flash("Question deleted successfully!")
+    return redirect('/admin/Questions')

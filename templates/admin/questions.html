@@ -1,0 +1,35 @@
+{%extends 'admin/base.html'%}
+{% block content %}
+{% if questions %}
+<table style="width: 100%;">
+    <tr>
+        <th>S.No.</th>
+        <th>Edit</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Grade</th>
+        <th>Asked By</th>
+        <th>Answer</th>
+    </tr>
+    {% for x in questions %}
+    <tr style="color: black;">
+        <td style="border: 1px solid black;">{{x.sno}}</td>
+        <td style="border: 1px solid black;"><form method="POST" action="/admin/Questions/edit"><input type="text" value="{{x.sno}}" name="sno" hidden><button type="submit">Edit</button></form></td>
+        <td style="border: 1px solid black;">{{x.question}}</td>
+        <td style="border: 1px solid black;">{{x.description}}</td>
+        <td style="border: 1px solid black;">{{x.std}}</td>
+        <td style="border: 1px solid black;">{{x.author}}</td>
+        <td style="border: 1px solid black;">
+            {% if x.answer %}
+            {{x.answer}}
+            {% else %}
+            <h1 style="color:black">This question is still not answered</h1>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h1 style="color:black">No data can be found here!</h1>
+{% endif %}
+{% endblock %}

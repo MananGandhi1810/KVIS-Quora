@@ -1,0 +1,12 @@
+{%extends 'admin/base.html'%}
+{% block content %}
+{% if data %}
+<form method="POST" action="/admin/Questions/update">
+    <input type="text" name="sno" value="{{data.sno}}" hidden>
+    <p style="color:black">Question: </p><input type="text" name="question" value="{{data.question}}">
+    <p style="color:black">Description: </p><input type="text" name="description"value="{{data.description}}">
+    <p style="color:black">Answer: </p>{% if data.answer %}<input type="text" name="answer" value="{{data.answer}}">{% else %}<input type="text" name="answer">{% endif %}
+    <p style="color:black">Standard: </p><input type="text" name="grade" value="{{data.std}}">
+    <button type="submit">Update</button></form><form action="/admin/Questions/delete" method="POST"><input type="text" name="sno" value="{{data.sno}}" hidden><button type="submit">Delete</button></form>
+{% endif %}
+{% endblock %}
