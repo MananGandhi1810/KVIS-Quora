@@ -39,7 +39,7 @@ def index_grade():
             return render_template('index.html', data=[x for x in all_data if x.std==std], sorted=sorted)
         elif isanswered=="answered" and std!="all" and subject!="all":
             print(5)
-            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std and x.subject==subject], sorted=sorted)
+            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std and x.subject==subject], sorted=sorted)
         elif isanswered=="answered" and std=="all" and subject!="all":
             print(6)
             return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject], sorted=sorted)
@@ -48,13 +48,13 @@ def index_grade():
             return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std], sorted=sorted)
         elif isanswered=="unanswered" and std!="all" and subject!="all":
             print(8)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std and x.subject==subject], sorted=sorted)
+            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std and x.subject==subject], sorted=sorted)
         elif isanswered=="unanswered" and std=="all" and subject!="all":
             print(9)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.subject==subject], sorted=sorted)
+            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.subject==subject], sorted=sorted)
         elif isanswered=="unanswered" and std!="all" and subject=="all":
             print(10)
-            return render_template('index.html', data=[x for x in all_data if x.answer!=None and x.std==std], sorted=sorted)
+            return render_template('index.html', data=[x for x in all_data if x.answer==None and x.std==std], sorted=sorted)
         elif isanswered=="answered" and std=="all" and subject=="all":
             print(11)
             return render_template('index.html', data=[x for x in all_data if x.answer!=None], sorted=sorted)
