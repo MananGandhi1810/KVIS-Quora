@@ -127,54 +127,95 @@ def question_show(id):
 @main.route('/admin/')
 @login_required
 def admin():
-    return render_template('admin/base.html')
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		return render_template('admin/base.html')
+	return abort(404)
 
 @main.route('/admin/Users')
 @login_required
 def users_admin():
-    users=User.query.all()[::-1]
-    return render_template('admin/users.html', users=users)
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		users=User.query.all()[::-1]
+		return render_template('admin/users.html', users=users)
+	return abort(404)
 
 @main.route('/admin/Questions/')
 @login_required
 def question_admin():
-    questions=Questions.query.all()[::-1]
-    return render_template('admin/questions.html', questions=questions)
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		questions=Questions.query.all()[::-1]
+		return render_template('admin/questions.html', questions=questions)
+	return abort(404)
 
 @main.route('/admin/Questions/edit', methods=['POST'])
 @login_required
 def edit_questions():
-    sno=request.form.get('sno')
-    data=Questions.query.filter(Questions.sno==sno).first()
-    return render_template("admin/edit_questions.html", data=data)
-
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		sno=request.form.get('sno')
+		data=Questions.query.filter(Questions.sno==sno).first()
+		return render_template("admin/edit_questions.html", data=data)
+	return abort(404)
 
 @main.route('/admin/Questions/update', methods=["POST"])
 @login_required
 def update():
-    sno=request.form.get('sno')
-    question=request.form.get('question')
-    description=request.form.get('description')
-    try:
-        answer=request.form.get('answer')
-    except:
-        answer=None
-    std=request.form.get('grade')
-    edit=Questions.query.filter(Questions.sno==int(sno)).first()
-    edit.question=question
-    edit.description=description
-    edit.answer=answer
-    edit.std=std
-    db.session.commit()
-    flash("Edit Saved Successfully!")
-    return redirect("/admin/Questions")
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		sno=request.form.get('sno')
+		question=request.form.get('question')
+		description=request.form.get('description')
+		try:
+				answer=request.form.get('answer')
+		except:
+				answer=None
+		std=request.form.get('grade')
+		edit=Questions.query.filter(Questions.sno==int(sno)).first()
+		edit.question=question
+		edit.description=description
+		edit.answer=answer
+		edit.std=std
+		db.session.commit()
+		flash("Edit Saved Successfully!")
+		return redirect("/admin/Questions")
+	return abort(404)
 
 @main.route('/admin/Questions/delete', methods=["POST"])
 @login_required
 def delete():
-    sno=request.form.get('sno')
-    to_delete=Questions.query.filter(Questions.sno==int(sno)).first()
-    db.session.delete(to_delete)
-    db.session.commit()
-    flash("Question deleted successfully!")
-    return redirect('/admin/Questions')
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		sno=request.form.get('sno')
+		to_delete=Questions.query.filter(Questions.sno==int(sno)).first()
+		db.session.delete(to_delete)
+		db.session.commit()
+		flash("Question deleted successfully!")
+		return redirect('/admin/Questions')
+	return abort(404)
+
+@main.route('/admin/Users/delete', methods=["POST"])
+@login_required
+def delete_user():
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		sno=request.form.get('sno')
+		print(type(sno))
+		print("abcd")
+		to_delete=User.query.filter_by(id=sno).first()
+		db.session.delete(to_delete)
+		db.session.commit()
+		flash("User Deleted")
+		return redirect('/admin/Users')
+	return abort(404)
+
+@main.route('/admin/Users/change_role', methods=["POST"])
+@login_required
+def change_role():
+	if User.query.filter(User.name==current_user.name).first().is_teacher:
+		sno=request.form.get('sno')
+		role=request.form.get('role')
+		change=User.query.filter_by(id=sno).first()
+		if role=="student":
+			change.is_teacher=False
+		else: change.is_teacher=True
+		db.session.commit()
+		print(User.query.filter_by(id=sno).first().is_teacher)
+		flash("Role Changed")
+		return redirect("/admin/Users")
+	return abort(404)

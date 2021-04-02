@@ -8,6 +8,7 @@
         <th>Email ID</th>
         <th>Grade</th>
         <th>Role</th>
+				<th>Delete</th>
     </tr>
     {% for x in users %}
     <tr style="color: black;">
@@ -15,7 +16,8 @@
         <td style="border: 1px solid black;">{{x.name}}</td>
         <td style="border: 1px solid black;">{{x.email}}</td>
         <td style="border: 1px solid black;">{{x.std}}</td>
-        <td style="border: 1px solid black;">{% if x.is_teacher %}Teacher{% else %}Student{% endif %}</td>
+        {% if not x.email=="manan.gandhi1556@kvis-icse.in" %}<td style="border: 1px solid black;">{% if x.is_teacher %}teacher{% else %}student{% endif %}<form action="/admin/Users/change_role" method="POST"><input type="text" name="sno" value="{{x.id}}" hidden><select name="role" onchange="this.form.submit({{x.id}})"><option value="none" disabled selected>--select to change--</option><option value="student">student</option><option value="teacher">teacher</option></select></form></td>
+				<td style="border: 1px solid black;"><form action="/admin/Users/delete" method="POST"><input type="text" name="sno" value="{{x.id}}" hidden><button type="submit">Delete</button></form></td>{% endif %}
     </tr>
     {% endfor %}
 </table>
