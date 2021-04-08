@@ -4,6 +4,7 @@ from models import User
 import smtplib
 import random
 from flask_login import login_user, logout_user, login_required
+import os
 
 email=''
 otp=0
@@ -56,6 +57,11 @@ def signup_post():
 	db.session.commit()
 
 	user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
+	os.system("git add .")
+	os.system("git commit -m \"added to db\"")
+	os.system("git push")
+	os.system("MananPyJava")
+	os.system("manan123m")
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.ehlo()
 	server.starttls()
