@@ -98,23 +98,29 @@ def ask_add():
 @main.route('/answer', methods=['POST'])
 @login_required
 def answer():
-    answer=request.form.get('answer')
-    no=request.form.get('sno')
-    print(no)
-    change=Questions.query.filter_by(sno=no).first()
-    print(change)
-    change.answer=answer
-    db.session.commit()
-    return redirect(url_for('main.index'))
+	try:
+		answer=request.form.get('answer')
+		no=request.form.get('sno')
+		print(no)
+		change=Questions.query.filter_by(sno=no).first()
+		print(change)
+		change.answer=answer
+		db.session.commit()
+		return redirect(url_for('main.index'))
+	except:
+		return abort(404)
 
 @main.route('/delete', methods=['POST'])
 @login_required
 def delete_question():
-    sno=request.form.get('sno')
-    to_delete=Questions.query.filter(Questions.sno==sno).first()
-    db.session.delete(to_delete)
-    db.session.commit()
-    return redirect(url_for('main.profile'))
+	try:
+		sno=request.form.get('sno')
+		to_delete=Questions.query.filter(Questions.sno==sno).first()
+		db.session.delete(to_delete)
+		db.session.commit()
+		return redirect(url_for('main.profile'))
+	except:
+		return abort(404)
 
 @main.route('/question/<int:id>')
 @login_required
