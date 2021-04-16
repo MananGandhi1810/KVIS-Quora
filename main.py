@@ -2,7 +2,7 @@ from flask import *
 from initial import *
 from flask_login import login_required, current_user
 from models import Questions, User
-import os
+
 
 
 main = Blueprint('main', __name__)
