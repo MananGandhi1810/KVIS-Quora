@@ -74,13 +74,13 @@ def signup_post():
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
+    remember = bool(request.form.get('remember'))
 
     user = User.query.filter_by(email=email).first()
 
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
-    if not user or not user.password==password:
+    if not user or user.password != password:
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
     # if the above check passes, then we know the user has the right credentials
@@ -125,13 +125,12 @@ def get_otp():
 
 @auth.route('/get_otp', methods=['POST'])
 def check_otp():
-	global otp
-	input_otp=request.form.get('otp')
-	if int(input_otp)==otp:
-		return redirect(url_for('auth.newpassword'))
-	else:
-		flash('Wrong OTP!')
-		return redirect(url_for('auth.get_otp'))
+    global otp
+    input_otp=request.form.get('otp')
+    if int(input_otp)==otp:
+        return redirect(url_for('auth.newpassword'))
+    flash('Wrong OTP!')
+    return redirect(url_for('auth.get_otp'))
 
 @auth.route('/newpassword')
 def newpassword():
