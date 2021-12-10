@@ -3,9 +3,16 @@ from initial import *
 from models import User
 import smtplib
 import random
+<<<<<<< HEAD
 from flask_login import login_user, logout_user, login_required
 
 email=''
+=======
+from flask_login import login_user, logout_user, login_required
+import os
+import keyboard as k
+email=''
+>>>>>>> 623b927af153623f83954eed6d8d8546828e77d5
 otp=0
 
 auth = Blueprint('auth', __name__)

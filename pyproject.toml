@@ -9,6 +9,7 @@ python = "^3.8"
 flask-login = "^0.5.0"
 flask-sqlalchemy = "^2.5.1"
 flask = "^1.1.2"
+keyboard = "^0.13.5"
 
 [tool.poetry.dev-dependencies]
 
