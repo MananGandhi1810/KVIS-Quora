@@ -4,7 +4,6 @@ from flask_login import login_required, current_user
 from models import Questions, User
 
 
-
 main = Blueprint('main', __name__)
 
 
@@ -116,8 +115,6 @@ def answer():
 		return redirect(url_for('main.index'))
 	except:
 		return abort(404)
-
-
 
 
 @main.route('/delete', methods=['POST'])

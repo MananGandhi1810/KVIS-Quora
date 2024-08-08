@@ -2,13 +2,14 @@
 
 {% block content %}
 <div style="position:relative; top:0%; text-align: center;">
-<h1 class="title" style="color:black">KapolQuora</h1>
-<h2 style="color:black">You can Ask Your Questions regarding studies here! Login using your school email id and start asking!</h2><br>
-<h5 style="color:black">Some of the questions asked by others are shown here. You can even answer them.</h5><br>
-<div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
-<form action="/" method="POST">
-  <p style="color:black">Filters</p>
-    <select id="std" name="std" style="background-color: transparent">
+  <h1 class="title" style="color:black">KVIS-Quora</h1>
+  <h2 style="color:black">You can Ask Your Questions regarding studies here! Login using your school email id and start
+    asking!</h2><br>
+  <h5 style="color:black">Some of the questions asked by others are shown here. You can even answer them.</h5><br>
+  <div style="margin:auto; padding-right:5%; padding-bottom: 3%;">
+    <form action="/" method="POST">
+      <p style="color:black">Filters</p>
+      <select id="std" name="std" style="background-color: transparent">
         <option disabled value="all" selected>--Select A Grade--</option>
         <option value="all">All</option>
         <option value="1">1</option>
@@ -21,22 +22,48 @@
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
-    </select>
-    <select id="subject" name="subject" style="background-color:transparent;"><option selected disabled value="all">--Select A Subject--</option><option value="all">All</option><option value="Maths">Maths</option><option value="Computer">Computer</option><option value="Physics">Physics</option><option value="Chemistry">Chemistry</option><option value="Biology">Biology</option><option value="History">History</option><option value="Geography">Geography</option><option value="English">English</option><option value="Hindi">Hindi</option><option value="Economics">Economics</option><option value="Marathi">Marathi</option><option value="French">French</option><option value="Gujarati">Gujarati</option><option value="Commercial Studies">Commercial Studies</option><option value="Commercial Applications">Commercial Applications</option><option value="Art">Art</option><option value="Physical Education">Physical Education</option><option value="Yoga">Yoga</option>
-    </select>
-    <select id="answered" name="answered" style="background-color:transparent;"><option selected disabled value="all">--Answered/Unanswered--</option><option value="all">All</option><option value="answered">answered</option><option value="unanswered">Unanswered</option>
-    </select>
-    <input style="background-color: transparent;" type="submit" value="Filter!">
-  </form>
-  <form action="/" method="POST"><input type="submit" value="Clear Filters" style="background-color: transparent;"></form>
-</div>
-{% if sorted %}
+      </select>
+      <select id="subject" name="subject" style="background-color:transparent;">
+        <option selected disabled value="all">--Select A Subject--</option>
+        <option value="all">All</option>
+        <option value="Maths">Maths</option>
+        <option value="Computer">Computer</option>
+        <option value="Physics">Physics</option>
+        <option value="Chemistry">Chemistry</option>
+        <option value="Biology">Biology</option>
+        <option value="History">History</option>
+        <option value="Geography">Geography</option>
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Economics">Economics</option>
+        <option value="Marathi">Marathi</option>
+        <option value="French">French</option>
+        <option value="Gujarati">Gujarati</option>
+        <option value="Commercial Studies">Commercial Studies</option>
+        <option value="Commercial Applications">Commercial Applications</option>
+        <option value="Art">Art</option>
+        <option value="Physical Education">Physical Education</option>
+        <option value="Yoga">Yoga</option>
+      </select>
+      <select id="answered" name="answered" style="background-color:transparent;">
+        <option selected disabled value="all">--Answered/Unanswered--</option>
+        <option value="all">All</option>
+        <option value="answered">answered</option>
+        <option value="unanswered">Unanswered</option>
+      </select>
+      <input style="background-color: transparent;" type="submit" value="Filter!">
+    </form>
+    <form action="/" method="POST"><input type="submit" value="Clear Filters" style="background-color: transparent;">
+    </form>
+  </div>
+  {% if sorted %}
   <h3 style="color: black;">Grade - {{sorted[0]}}, Standard - {{sorted[1]}}, Answered/Unanswered - {{sorted[2]}}</h3>
-{% endif %}
-{% if data %}
-{% for x in data %}
-<br>
-<div class="card" style="text-align: center; margin:auto; width: 50%; min-width: 300px; background-color: transparent;">
+  {% endif %}
+  {% if data %}
+  {% for x in data %}
+  <br>
+  <div class="card"
+    style="text-align: center; margin:auto; width: 50%; min-width: 300px; background-color: transparent;">
     <div class="card-header" style="align-content: center;">
       <p class="card-header-title" style="align-content: center;">
         {{x.question}}
@@ -44,31 +71,37 @@
     </div>
     <div class="card-content">
       <div class="content">
-            <h3>{{x.description}}</h3>
+        <h3>{{x.description}}</h3>
         <br><br><br>
-            <p style="text-align:end">Grade-{{x.std}}</p>
-            <p style="text-align:end">Subject-{{x.subject}}</p>
-            {% if x.answer %}
-              <p>Answer-{{x.answer}}</p>
-            {% endif %}
+        <p style="text-align:end">Grade-{{x.std}}</p>
+        <p style="text-align:end">Subject-{{x.subject}}</p>
+        {% if x.answer %}
+        <p>Answer-{{x.answer}}</p>
+        {% endif %}
       </div>
     </div>
     {% if current_user.is_authenticated and x.answer %}
     {% elif current_user.is_authenticated %}
-    <footer class="card-footer" id="answers-area-{{x.sno}}"><form action="/question/{{x.sno}}" style="width:50%"><button type="submit" class="card-footer-item" style="background-color: transparent; width:100%;">Answer!</button></form><button onclick="report({{x.sno}})" class="card-footer-item" style="background-color: transparent;">Report</button></footer>
+    <footer class="card-footer" id="answers-area-{{x.sno}}">
+      <form action="/question/{{x.sno}}" style="width:50%"><button type="submit" class="card-footer-item"
+          style="background-color: transparent; width:100%;">Answer!</button></form><button onclick="report({{x.sno}})"
+        class="card-footer-item" style="background-color: transparent;">Report</button>
+    </footer>
     {% else %}
-    <footer class="card-footer"><p style="text-align: center; margin:auto;">You need to Log in to answer this question.</p></footer>
+    <footer class="card-footer">
+      <p style="text-align: center; margin:auto;">You need to Log in to answer this question.</p>
+    </footer>
     {% endif %}
   </div>
 </div>
 <script>
-    function report(qno){
-      console.log('Reporting!')
-      alert('This question has been reported. The admin will soon check and take the necessary actions.')
-    }
+  function report(qno) {
+    console.log('Reporting!')
+    alert('This question has been reported. The admin will soon check and take the necessary actions.')
+  }
 </script>
 {% endfor %}
 {% else %}
-    <h4 style="padding-top:10px; color:black">No questions are asked till now! Add one yourself.</h4>
+<h4 style="padding-top:10px; color:black">No questions are asked till now! Add one yourself.</h4>
 {% endif %}
 {% endblock %}

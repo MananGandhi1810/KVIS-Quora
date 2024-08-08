@@ -2,13 +2,14 @@
 
 {% block content %}
 <div style="position:relative; top:0%; text-align: center;">
-<h1 class="title" style="color:black">KapolQuora</h1>
-<h2 style="color:black">Welcome to your profile, {{user}}</h2><br>
-<h5 style="color:black">The questions asked by you are shown here.</h5>
-{% if data %}
-{% for x in data %}
-<br>
-<div class="card" style="text-align: center; margin:auto; width: 50%; min-width:300px; background-color: transparent;">
+  <h1 class="title" style="color:black">KVIS-Quora</h1>
+  <h2 style="color:black">Welcome to your profile, {{user}}</h2><br>
+  <h5 style="color:black">The questions asked by you are shown here.</h5>
+  {% if data %}
+  {% for x in data %}
+  <br>
+  <div class="card"
+    style="text-align: center; margin:auto; width: 50%; min-width:300px; background-color: transparent;">
     <div class="card-header" style="align-content: center;">
       <p class="card-header-title" style="align-content: center;">
         {{x.question}}
@@ -16,30 +17,33 @@
     </div>
     <div class="card-content">
       <div class="content">
-            {{x.description}}
-            <br><br><br>
-            <p style="text-align:end">Grade-{{x.std}}</p>
-            <p style="text-align:end">Subject-{{x.subject}}</p>
-            {% if x.answer %}
-              <p>Answer-{{x.answer}}</p>
-            {% endif %}
+        {{x.description}}
+        <br><br><br>
+        <p style="text-align:end">Grade-{{x.std}}</p>
+        <p style="text-align:end">Subject-{{x.subject}}</p>
+        {% if x.answer %}
+        <p>Answer-{{x.answer}}</p>
+        {% endif %}
       </div>
     </div>
     {% if not x.answer %}
-    <footer class="card-footer" id="answers-area-{{x.sno}}"><form action="/delete" method="POST"><input name="sno" type="text" value="{{x.sno}}" hidden><button class="card-footer-item" style="background-color: transparent; margin:auto;">Delete</button></form></footer>
+    <footer class="card-footer" id="answers-area-{{x.sno}}">
+      <form action="/delete" method="POST"><input name="sno" type="text" value="{{x.sno}}" hidden><button
+          class="card-footer-item" style="background-color: transparent; margin:auto;">Delete</button></form>
+    </footer>
     {% endif %}
   </div>
 </div>
 {% endfor %}
 {% else %}
-    <h4 style="padding-top:10px; color:black">You have not asked any questions till now!</h4>
+<h4 style="padding-top:10px; color:black">You have not asked any questions till now!</h4>
 {% endif %}
 <script>
-    function answer(qno){
-      console.log('Answering!')
-    }
-    function report(qno){
-      console.log('Reporting!')
-    }
+  function answer(qno) {
+    console.log('Answering!')
+  }
+  function report(qno) {
+    console.log('Reporting!')
+  }
 </script>
 {% endblock %}

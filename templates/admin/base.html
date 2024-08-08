@@ -3,45 +3,51 @@
 
 <head>
     <meta charset="utf-8">
-		<meta name="google-site-verification" content="7tEDyzCQXQEHOI6Ol-eswS_cGs5GIPj3esll-i1V_28" />
+    <meta name="google-site-verification" content="7tEDyzCQXQEHOI6Ol-eswS_cGs5GIPj3esll-i1V_28" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KapolQuora-Ask Your Doubts!</title>
-		<link rel="shortcut icon" type="image/jpg" href="https://content.jdmagicbox.com/mumbai/40/022p8803840/catalogue/kapol-vidyanidhi-international-school-mahavir-nagar-kandivali-west-mumbai-schools-0qh2y.jpg"/>
+    <title>KVIS-Quora-Ask Your Doubts!</title>
+    <link rel="shortcut icon" type="image/jpg"
+        href="https://content.jdmagicbox.com/mumbai/40/022p8803840/catalogue/kapol-vidyanidhi-international-school-mahavir-nagar-kandivali-west-mumbai-schools-0qh2y.jpg" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-		<style>
-			::-webkit-scrollbar {
-				width: 10px;
-			}
-			html {
-				--scrollbarBG: transparent;
-				--thumbBG: #90A4AE;
-			}
-			/* Track */
-			::-webkit-scrollbar-track {
-				background: #f1f1f1;
-			}
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
-			/* Handle */
-			::-webkit-scrollbar-thumb {
-				background: #888;
-			}
+        html {
+            --scrollbarBG: transparent;
+            --thumbBG: #90A4AE;
+        }
 
-			/* Handle on hover */
-			::-webkit-scrollbar-thumb:hover {
-				background: #555;
-			}
-		</style>
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
 </head>
 
 <body>
     <section class="hero is-primary is-fullheight" style="background-color: rgb(220, 241, 241); padding: 1px;">
         <div class="hero-head">
-            <nav class="navbar is-fixed-top" style="background-image: linear-gradient( rgb(146, 146, 204), rgb(220, 241, 241));">
+            <nav class="navbar is-fixed-top"
+                style="background-image: linear-gradient( rgb(146, 146, 204), rgb(220, 241, 241));">
                 <div class="container">
                     <div class="navbar-brand">
-                        <a class="navbar-brand" style="font-size:xx-large;" href="{{url_for('main.index')}}">KapolQuora</a>
-                        <a role="button" onclick="toggle()" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                        <a class="navbar-brand" style="font-size:xx-large;"
+                            href="{{url_for('main.index')}}">KVIS-Quora</a>
+                        <a role="button" onclick="toggle()" class="navbar-burger" aria-label="menu"
+                            aria-expanded="false" data-target="navbarBasicExample">
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
@@ -61,32 +67,33 @@
                         </div>
                     </div>
                 </div>
-                
+
             </nav>
             <br><br>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div class="notification is-danger">
-                    {{ messages[0] }}
-                </div>
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
             {% endif %}
             {% endwith %}
-            {% block content %}  
+            {% block content %}
             {% endblock %}
         </div>
     </section>
     <script>
-        function toggle(){
-            if(document.getElementById("navid").className=="navbar-menu is-active"){
-                document.getElementById("navid").className="navbar-menu"
+        function toggle() {
+            if (document.getElementById("navid").className == "navbar-menu is-active") {
+                document.getElementById("navid").className = "navbar-menu"
             }
-            else{
-                document.getElementById("navid").className="navbar-menu is-active"
+            else {
+                document.getElementById("navid").className = "navbar-menu is-active"
 
             }
         }
     </script>
-		<footer style="text-align: center; background-color: rgb(193, 218, 219);">This website is developed by Manan Gandhi</footer>
+    <footer style="text-align: center; background-color: rgb(193, 218, 219);">This website is developed by Manan Gandhi
+    </footer>
 </body>
 
 </html>

@@ -60,7 +60,7 @@ def signup_post():
 	server.starttls()
 	server.login("gandhimanan1810@gmail.com", 'manan123m')
 	try:
-		server.sendmail('gandhimanan1810@gmail.com', email, "Hello! We have noticed that this email has bee used to sign up for our service, KapolQuora. If this is you ignore this email and enjoy our service, but if it wasn't you, make sure to report it to us at out website https://KapolQuora.mananpyjava.repl.co/report_account")
+		server.sendmail('gandhimanan1810@gmail.com', email, "Hello! We have noticed that this email has bee used to sign up for our service, KVIS-Quora. If this is you ignore this email and enjoy our service, but if it wasn't you, make sure to report it to us at out website https://KVIS-Quora.mananpyjava.repl.co/report_account")
 	except:
 		flash('The email id you have submitted is invalid. Please submit a valid email id.')
 		return redirect(url_for('auth.signup'))
