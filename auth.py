@@ -58,7 +58,7 @@ def signup_post():
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.ehlo()
 	server.starttls()
-	server.login("gandhimanan1810@gmail.com", 'manan123m')
+	server.login("gandhimanan1810@gmail.com", 'password123')
 	try:
 		server.sendmail('gandhimanan1810@gmail.com', email, "Hello! We have noticed that this email has bee used to sign up for our service, KVIS-Quora. If this is you ignore this email and enjoy our service, but if it wasn't you, make sure to report it to us at out website https://KVIS-Quora.mananpyjava.repl.co/report_account")
 	except:
@@ -103,7 +103,7 @@ def send_otp():
 					server = smtplib.SMTP('smtp.gmail.com', 587)
 					server.ehlo()
 					server.starttls()
-					server.login("gandhimanan1810@gmail.com", 'manan123m')
+					server.login("gandhimanan1810@gmail.com", 'password123')
 					try:
 						otp= random.randint(1000, 9999)
 						server.sendmail('gandhimanan1810@gmail.com', email, "Your otp is"+str(otp))
